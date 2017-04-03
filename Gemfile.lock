@@ -280,6 +280,7 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
+  bcrypt
   byebug (~> 9.0, >= 9.0.6)
   capybara (~> 2.10, >= 2.10.1)
   chromedriver-helper (~> 1.0, >= 1.0.0)
@@ -321,4 +322,4 @@ DEPENDENCIES
   webrick (~> 1.3, >= 1.3.1)
 
 BUNDLED WITH
-   1.13.6
+   1.14.1
