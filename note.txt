@@ -1,0 +1,5 @@
+to start:
+gem uninstall bcrypt (choose option 3)
+gem install bcrypt --platform=ruby
+
+add gem 'bcrypt', platforms: :ruby to Gemfile
