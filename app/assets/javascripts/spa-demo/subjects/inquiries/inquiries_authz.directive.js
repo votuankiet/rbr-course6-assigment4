@@ -3,14 +3,14 @@
 
   angular
     .module("spa-demo.subjects")
-    .directive("sdImagesAuthz", ImagesAuthzDirective);
+    .directive("sdInquiriesAuthz", InquiriesAuthzDirective);
 
-  ImagesAuthzDirective.$inject = [];
+  InquiriesAuthzDirective.$inject = [];
 
-  function ImagesAuthzDirective() {
+  function InquiriesAuthzDirective() {
     var directive = {
         bindToController: true,
-        controller: ImagesAuthzController,
+        controller: InquiriesAuthzController,
         controllerAs: "vm",
         restrict: "A",
         link: link
@@ -18,13 +18,13 @@
     return directive;
 
     function link(scope, element, attrs) {
-      console.log("ImagesAuthzDirective", scope);
+      console.log("InquiriesAuthzDirective", scope);
     }
   }
 
-  ImagesAuthzController.$inject = ["$scope",
-                                   "spa-demo.subjects.ImagesAuthz"];
-  function ImagesAuthzController($scope, ImagesAuthz) {
+  InquiriesAuthzController.$inject = ["$scope",
+                                   "spa-demo.subjects.InquiriesAuthz"];
+  function InquiriesAuthzController($scope, InquiriesAuthz) {
     var vm = this;
     vm.authz={};
     vm.authz.canUpdateItem = canUpdateItem;
@@ -37,9 +37,8 @@
       vm.newItem(null);
     }
 
-    //waiting for user request
     function newItem(item) {
-      ImagesAuthz.getAuthorizedUser().then(
+      InquiriesAuthz.getAuthorizedUser().then(
         function(user){ authzUserItem(item, user); },
         function(user){ authzUserItem(item, user); });
     }
@@ -47,28 +46,28 @@
     function authzUserItem(item, user) {
       console.log("new Item/Authz", item, user);
 
-      vm.authz.authenticated = ImagesAuthz.isAuthenticated();
-      vm.authz.canQuery      = ImagesAuthz.canQuery();
-      vm.authz.canCreate = ImagesAuthz.canCreate();
-      if (item && item.$promise) {//item is an existing resource, and we are loading it
+      vm.authz.authenticated = InquiriesAuthz.isAuthenticated();
+      vm.authz.canQuery      = InquiriesAuthz.canQuery();
+      vm.authz.canCreate = InquiriesAuthz.canCreate();
+      if (item && item.$promise) {
         vm.authz.canUpdate     = false;
         vm.authz.canDelete     = false;
         vm.authz.canGetDetails = false;
         item.$promise.then(function(){ checkAccess(item); });
-      } else {//item is null
+      } else {
         checkAccess(item)
       }
     }
 
     function checkAccess(item) {
-      vm.authz.canUpdate     = ImagesAuthz.canUpdate(item);
-      vm.authz.canDelete     = ImagesAuthz.canDelete(item);
-      vm.authz.canGetDetails = ImagesAuthz.canGetDetails(item);
+      vm.authz.canUpdate     = InquiriesAuthz.canUpdate(item);
+      vm.authz.canDelete     = InquiriesAuthz.canDelete(item);
+      vm.authz.canGetDetails = InquiriesAuthz.canGetDetails(item);
       console.log("checkAccess", item, vm.authz);
     }    
 
     function canUpdateItem(item) {
-      return ImagesAuthz.canUpdate(item);
+      return InquiriesAuthz.canUpdate(item);
     }    
   }
 })();

@@ -6,9 +6,9 @@ class ImagesController < ApplicationController
   after_action :verify_policy_scoped, only: [:index]
 
   def index
-    authorize Image
-    @images = policy_scope(Image.all)
-    @images = ImagePolicy.merge(@images)
+    authorize Image #is the user allowed to list image
+    @images = policy_scope(Image.all) # left join images table with roles table to get all image attribute and coressponding role name
+    @images = ImagePolicy.merge(@images) # append user's roles array to the return result
   end
 
   def show

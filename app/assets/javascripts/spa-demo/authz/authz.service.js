@@ -34,6 +34,8 @@
         newUser);
     }
 
+    //make http request to whoAmI
+    //setting signal to indicate whether the request is finished or not
     function newUser() {
       //we do not have a authz-user until resolved
       var deferred=$q.defer();
@@ -64,6 +66,9 @@
       console.log("processed roles", service.user);
     }    
 
+    //waiting for newUser() request to return
+    //after a response is returned resolve or reject the service.user, which is also a the http response
+    //In case the request already finished, service.userPromise will be null, and we simple resolve the service.user
     function getAuthorizedUser() {
       var deferred = $q.defer();
 
@@ -79,6 +84,8 @@
       return deferred.promise;
     }
 
+    //if there is no on-going request to identify current user and service.user is not null, return service.user.id
+    //otherwise return null
     function getAuthorizedUserId() {
       return service.user && !service.userPromise ? service.user.id : null;
     }

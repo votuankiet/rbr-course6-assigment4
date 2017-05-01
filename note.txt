@@ -3,3 +3,16 @@ gem uninstall bcrypt (choose option 3)
 gem install bcrypt --platform=ruby
 
 add gem 'bcrypt', platforms: :ruby to Gemfile
+
+
+
+
+
+rails-api g scaffold Inquiry title description creator_id:integer:index --orm active_record
+add not null for creator_id column in the migration script
+
+clean up controller
+
+move routes under scopes api
+
+rake db:migrate
